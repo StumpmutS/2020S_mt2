@@ -57,12 +57,28 @@ class Grid:
         of the spectrum.
         (This was the midterm question)
         """
-        return False  #FIXME
+        columns = self.columns()
+        for column in columns:
+            if all(color in column for color in spectrum):
+                return True
+        return False
         # Hints:  A set would be a useful data structure.
         # Recall the set methods
         #    s = set([x, y, z])  to create set from a list
         #    s.len()  to count elements in a list
         #    s.discard(y) to remove an element
+
+    def columns(self) -> List[List[Color]]:
+        result = [[]]
+        if len(self._tiles) == 0:
+            return result
+        for i in range(len(self._tiles[0])):
+            column = []
+            for x in self._tiles:
+                column.append(x[i])
+            result.append(column)
+        return result
+
 
     # The following methods were added for live coding
 
