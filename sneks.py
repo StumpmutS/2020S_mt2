@@ -7,24 +7,23 @@ I can find on one path from root to leaf.
 from typing import List
 
 class SnakeTree:
-    def max_snakes_path(self, counter: int = 0) -> int:
+    def max_snakes_path(self) -> int:
         raise NotImplementedError("Help me look for snakes!")
 
 class Leaf(SnakeTree):
     def __init__(self, snakes: int):
         self._snakes = snakes
 
-    def max_snakes_path(self, counter=0) -> int:
-        return counter + self._snakes
+    def max_snakes_path(self) -> int:
+        return self._snakes
 
 class Branch(SnakeTree):
     def __init__(self, snakes: int, children: List[SnakeTree]):
         self._snakes = snakes
         self._children = children
 
-    def max_snakes_path(self, counter=0) -> int:
-        counter += self._snakes
-        return max(st.max_snakes_path(counter) for st in self._children)
+    def max_snakes_path(self) -> int:
+        return max(self._snakes + st.max_snakes_path() for st in self._children)
 
 def main():
     """Smoke test"""
